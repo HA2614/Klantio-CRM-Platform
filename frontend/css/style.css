@@ -1,0 +1,1803 @@
+/* =========================================================
+   Freelancer CRM — Notion x Trello Theme
+   Overrides Bootstrap 5.3, per class/id selectors only
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
+/* ─── TOKENS ─────────────────────────────────────────────── */
+:root {
+    --crm-bg: #F7F6F3;
+    --crm-card: #FFFFFF;
+    --crm-sidebar: #FBFAF8;
+    --crm-border: #E8E5DF;
+    --crm-border-light: #F0EDE8;
+    --crm-text: #1A1916;
+    --crm-muted: #74706A;
+    --crm-faint: #A8A49D;
+    --crm-accent-blue: #3B6FE8;
+    --crm-accent-green: #30A96A;
+    --crm-accent-amber: #D97706;
+    --crm-accent-slate: #6366F1;
+    --crm-accent-red: #DC2626;
+    --crm-shadow-sm: 0 1px 3px rgba(26, 25, 22, 0.05), 0 1px 2px rgba(26, 25, 22, 0.03);
+    --crm-shadow-md: 0 4px 16px rgba(26, 25, 22, 0.08), 0 1px 4px rgba(26, 25, 22, 0.04);
+    --crm-radius: 10px;
+    --crm-radius-sm: 6px;
+    --crm-font-body: 'DM Sans', system-ui, sans-serif;
+    --crm-font-display: 'Lora', Georgia, serif;
+}
+
+/* ─── BODY ────────────────────────────────────────────────── */
+.container-fluid {
+    background: var(--crm-bg);
+    font-family: var(--crm-font-body);
+    min-height: calc(100vh - 56px);
+    padding-top: 0 !important;
+}
+
+/* ─── NAVBAR ──────────────────────────────────────────────── */
+.navbar.navbar-dark.bg-primary {
+    background-color: var(--crm-card) !important;
+    border-bottom: 1px solid var(--crm-border);
+    padding: 0 24px;
+    height: 52px;
+    box-shadow: none;
+}
+
+.navbar-brand {
+    font-family: var(--crm-font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--crm-text) !important;
+    letter-spacing: -0.3px;
+    opacity: 1;
+    padding: 0;
+    margin-right: 32px;
+}
+
+.navbar-brand .bi-people-fill {
+    color: var(--crm-text);
+    opacity: 0.35;
+}
+
+.navbar-nav .nav-link {
+    font-family: var(--crm-font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--crm-muted) !important;
+    padding: 6px 10px !important;
+    border-radius: var(--crm-radius-sm);
+    transition: background 0.14s, color 0.14s;
+    margin: 0 1px;
+}
+
+.navbar-nav .nav-link:hover {
+    background: var(--crm-bg);
+    color: var(--crm-text) !important;
+}
+
+.navbar-nav .nav-link.active {
+    background: var(--crm-bg);
+    color: var(--crm-text) !important;
+    font-weight: 600;
+}
+
+.navbar-nav .nav-link .bi {
+    opacity: 0.55;
+}
+
+/* User dropdown button */
+#userDropdown {
+    background: var(--crm-bg);
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--crm-text);
+    padding: 5px 12px;
+    transition: background 0.14s, border-color 0.14s;
+}
+
+#userDropdown:hover,
+#userDropdown:focus {
+    background: var(--crm-border-light);
+    border-color: #C8C5BE;
+    color: var(--crm-text);
+    box-shadow: none;
+}
+
+#userAvatar {
+    border-radius: 5px;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius);
+    box-shadow: var(--crm-shadow-md);
+    background: var(--crm-card);
+    padding: 6px;
+    font-family: var(--crm-font-body);
+    font-size: 13px;
+    min-width: 160px;
+}
+
+.dropdown-item {
+    border-radius: var(--crm-radius-sm);
+    padding: 7px 10px;
+    font-size: 13px;
+    color: var(--crm-text);
+    font-weight: 500;
+    transition: background 0.12s;
+}
+
+.dropdown-item:hover {
+    background: var(--crm-bg);
+    color: var(--crm-text);
+}
+
+.dropdown-divider {
+    border-color: var(--crm-border);
+    margin: 4px 0;
+}
+
+/* ─── PAGE WRAPPER PADDING ────────────────────────────────── */
+.container-fluid.mt-4 {
+    margin-top: 0 !important;
+    padding: 32px 28px 48px;
+    background: var(--crm-bg);
+}
+
+/* ─── SIDEBAR COLUMN ──────────────────────────────────────── */
+.col-md-3.col-lg-2 {
+    padding-right: 20px;
+}
+
+.col-md-3.col-lg-2 .card {
+    background: var(--crm-sidebar);
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius);
+    box-shadow: var(--crm-shadow-sm);
+}
+
+.col-md-3.col-lg-2 .card-body {
+    padding: 18px 14px;
+}
+
+.col-md-3.col-lg-2 .card-subtitle {
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--crm-faint) !important;
+    margin-bottom: 12px !important;
+}
+
+/* Quick action buttons */
+#qaNewContact {
+    background: var(--crm-text);
+    border: none;
+    border-radius: var(--crm-radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 9px 12px;
+    color: #fff;
+    font-family: var(--crm-font-body);
+    letter-spacing: -0.01em;
+    transition: opacity 0.15s, transform 0.1s;
+}
+
+#qaNewContact:hover {
+    background: #2E2B27;
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: var(--crm-shadow-sm);
+}
+
+#qaNewProject,
+#qaNewInvoice {
+    background: transparent;
+    border: 1.5px solid var(--crm-border);
+    border-radius: var(--crm-radius-sm);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 12px;
+    color: var(--crm-text);
+    font-family: var(--crm-font-body);
+    transition: background 0.12s, border-color 0.12s;
+}
+
+#qaNewProject:hover,
+#qaNewInvoice:hover {
+    background: var(--crm-bg);
+    border-color: #B0ADA6;
+    color: var(--crm-text);
+}
+
+/* ─── MAIN COLUMN ─────────────────────────────────────────── */
+.col-md-9.col-lg-10 {
+    padding-left: 8px;
+}
+
+/* Welcome heading */
+#welcomeName {
+    font-family: var(--crm-font-display);
+    font-weight: 700;
+    color: var(--crm-text);
+}
+
+/* ─── STAT CARDS (override Bootstrap bg-* colours) ────────── */
+/* Opdrachtgevers — blue accent */
+.card.text-white.bg-primary {
+    background: var(--crm-card) !important;
+    color: var(--crm-text) !important;
+    border: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) !important;
+    box-shadow: var(--crm-shadow-sm) !important;
+    border-top: 3px solid var(--crm-accent-blue) !important;
+    transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.card.text-white.bg-primary:hover {
+    box-shadow: var(--crm-shadow-md) !important;
+    transform: translateY(-2px);
+}
+
+.card.text-white.bg-primary .card-subtitle.text-white-50 {
+    color: var(--crm-faint) !important;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.card.text-white.bg-primary .card-title {
+    color: var(--crm-text) !important;
+    font-family: var(--crm-font-display);
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.card.text-white.bg-primary .bi {
+    color: var(--crm-accent-blue);
+    opacity: 0.15;
+    font-size: 2.4rem !important;
+}
+
+/* Opdrachten — green accent */
+.card.text-white.bg-success {
+    background: var(--crm-card) !important;
+    color: var(--crm-text) !important;
+    border: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) !important;
+    box-shadow: var(--crm-shadow-sm) !important;
+    border-top: 3px solid var(--crm-accent-green) !important;
+    transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.card.text-white.bg-success:hover {
+    box-shadow: var(--crm-shadow-md) !important;
+    transform: translateY(-2px);
+}
+
+.card.text-white.bg-success .card-subtitle.text-white-50 {
+    color: var(--crm-faint) !important;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.card.text-white.bg-success .card-title {
+    color: var(--crm-text) !important;
+    font-family: var(--crm-font-display);
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.card.text-white.bg-success .bi {
+    color: var(--crm-accent-green);
+    opacity: 0.15;
+    font-size: 2.4rem !important;
+}
+
+/* Open Facturen — amber accent */
+.card.text-white.bg-warning {
+    background: var(--crm-card) !important;
+    color: var(--crm-text) !important;
+    border: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) !important;
+    box-shadow: var(--crm-shadow-sm) !important;
+    border-top: 3px solid var(--crm-accent-amber) !important;
+    transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.card.text-white.bg-warning:hover {
+    box-shadow: var(--crm-shadow-md) !important;
+    transform: translateY(-2px);
+}
+
+.card.text-white.bg-warning .card-subtitle.text-white-50 {
+    color: var(--crm-faint) !important;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.card.text-white.bg-warning .card-title {
+    color: var(--crm-text) !important;
+    font-family: var(--crm-font-display);
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.card.text-white.bg-warning .bi {
+    color: var(--crm-accent-amber);
+    opacity: 0.15;
+    font-size: 2.4rem !important;
+}
+
+/* Gefactureerd — indigo accent */
+.card.text-white.bg-info {
+    background: var(--crm-card) !important;
+    color: var(--crm-text) !important;
+    border: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) !important;
+    box-shadow: var(--crm-shadow-sm) !important;
+    border-top: 3px solid var(--crm-accent-slate) !important;
+    transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.card.text-white.bg-info:hover {
+    box-shadow: var(--crm-shadow-md) !important;
+    transform: translateY(-2px);
+}
+
+.card.text-white.bg-info .card-subtitle.text-white-50 {
+    color: var(--crm-faint) !important;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.card.text-white.bg-info .card-title {
+    color: var(--crm-text) !important;
+    font-family: var(--crm-font-display);
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.card.text-white.bg-info .bi {
+    color: var(--crm-accent-slate);
+    opacity: 0.15;
+    font-size: 2.4rem !important;
+}
+
+/* ─── GENERIC CARDS (activity, sections, profile) ─────────── */
+.card {
+    border: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) !important;
+    background: var(--crm-card) !important;
+    box-shadow: var(--crm-shadow-sm) !important;
+}
+
+.card-header {
+    background: var(--crm-bg) !important;
+    border-bottom: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) var(--crm-radius) 0 0 !important;
+    padding: 13px 18px;
+}
+
+.card-header .mb-0 {
+    font-family: var(--crm-font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--crm-text);
+    letter-spacing: -0.2px;
+}
+
+.card-body {
+    padding: 18px;
+    font-family: var(--crm-font-body);
+}
+
+/* ─── ACTIVITY LIST ───────────────────────────────────────── */
+#activityList .list-group-item {
+    border: none;
+    border-bottom: 1px solid var(--crm-border-light);
+    padding: 10px 0;
+    font-size: 13px;
+    color: var(--crm-muted);
+    background: transparent;
+}
+
+#activityList .list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* ─── SECTION HEADINGS & ADD BUTTONS ──────────────────────── */
+#contacts .mb-0,
+#projects .mb-0,
+#invoices .mb-0 {
+    font-family: var(--crm-font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--crm-text);
+    letter-spacing: -0.3px;
+}
+
+#addContactBtn,
+#addProjectBtn,
+#addInvoiceBtn {
+    background: var(--crm-text);
+    border: none;
+    border-radius: var(--crm-radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 13px;
+    color: #fff;
+    font-family: var(--crm-font-body);
+    transition: opacity 0.15s, transform 0.1s;
+}
+
+#addContactBtn:hover,
+#addProjectBtn:hover,
+#addInvoiceBtn:hover {
+    background: #2E2B27;
+    opacity: 0.88;
+    transform: translateY(-1px);
+    box-shadow: var(--crm-shadow-sm);
+}
+
+/* ─── TABLES ──────────────────────────────────────────────── */
+.crm-table {
+    font-size: 13px;
+    font-family: var(--crm-font-body);
+    border-collapse: separate !important;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: var(--crm-radius);
+    border: 1px solid var(--crm-border);
+    background: var(--crm-card);
+    box-shadow: var(--crm-shadow-sm);
+}
+
+.crm-table thead.table-light th {
+    background: var(--crm-bg) !important;
+    color: var(--crm-faint);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    border-bottom: 1px solid var(--crm-border) !important;
+    padding: 11px 14px;
+    white-space: nowrap;
+}
+
+.crm-table tbody tr {
+    transition: background 0.1s;
+    cursor: pointer;
+}
+
+.crm-table tbody tr:hover {
+    background-color: var(--crm-bg) !important;
+}
+
+.crm-table tbody td {
+    padding: 13px 14px;
+    color: var(--crm-text);
+    font-weight: 500;
+    border-bottom: 1px solid var(--crm-border-light) !important;
+    vertical-align: middle;
+    font-size: 13px;
+}
+
+.crm-table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* ─── BADGES / STATUS TAGS ────────────────────────────────── */
+.badge.bg-success {
+    background: #D1F5E5 !important;
+    color: #1A6E47 !important;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 100px;
+    letter-spacing: 0;
+}
+
+.badge.bg-warning {
+    background: #FFF3CD !important;
+    color: #7A4F00 !important;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 100px;
+}
+
+.badge.bg-danger {
+    background: #FFE5E5 !important;
+    color: #891515 !important;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 100px;
+}
+
+.badge.bg-secondary {
+    background: var(--crm-border) !important;
+    color: var(--crm-muted) !important;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 100px;
+}
+
+.badge.bg-info {
+    background: #DBEAFE !important;
+    color: #1E40AF !important;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 100px;
+}
+
+/* ─── PROFILE CARD ────────────────────────────────────────── */
+#profile {
+    border: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) !important;
+}
+
+#profile .card-header {
+    background: var(--crm-bg) !important;
+}
+
+#profile .card-body {
+    padding: 24px 18px;
+}
+
+#profileName {
+    font-family: var(--crm-font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--crm-text);
+    letter-spacing: -0.2px;
+}
+
+#profileEmail {
+    font-size: 12px;
+    color: var(--crm-faint) !important;
+}
+
+#profileUserId {
+    font-size: 11px;
+    color: var(--crm-faint);
+    word-break: break-all;
+}
+
+#profileLastLogin {
+    font-size: 12px;
+    color: var(--crm-muted);
+}
+
+/* Profile avatar: circular initials placeholder */
+#profileAvatar {
+    border-radius: 12px;
+    border: 2px solid var(--crm-border);
+    transform: none;
+}
+
+/* Override the broken transform from the original */
+.col-lg-10 .col-md-4 {
+    transform: none;
+    max-width: 100%;
+    position: static;
+    left: auto;
+    min-width: 0;
+}
+
+#profile .card-body {
+    width: auto;
+}
+
+/* Meta labels in profile */
+#profile .text-start strong {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--crm-faint);
+}
+
+/* ─── HR DIVIDERS ─────────────────────────────────────────── */
+.col-md-8 hr.my-4 {
+    border-color: var(--crm-border);
+    opacity: 1;
+    margin: 28px 0;
+}
+
+#profile hr {
+    border-color: var(--crm-border);
+    opacity: 1;
+}
+
+/* ─── GENERIC FORM ELEMENTS (modals) ──────────────────────── */
+.form-control {
+    border: 1.5px solid var(--crm-border);
+    border-radius: var(--crm-radius-sm);
+    padding: 9px 12px;
+    font-size: 13px;
+    background: var(--crm-card);
+    color: var(--crm-text);
+    font-family: var(--crm-font-body);
+    transition: border-color 0.14s, box-shadow 0.14s;
+}
+
+.form-control:focus {
+    border-color: var(--crm-text);
+    box-shadow: 0 0 0 3px rgba(26, 25, 22, 0.08);
+    background: var(--crm-card);
+}
+
+.form-control::placeholder {
+    color: var(--crm-faint);
+}
+
+.form-select {
+    border: 1.5px solid var(--crm-border);
+    border-radius: var(--crm-radius-sm);
+    padding: 9px 12px;
+    font-size: 13px;
+    background: var(--crm-card);
+    color: var(--crm-text);
+    font-family: var(--crm-font-body);
+    transition: border-color 0.14s;
+}
+
+.form-select:focus {
+    border-color: var(--crm-text);
+    box-shadow: 0 0 0 3px rgba(26, 25, 22, 0.08);
+}
+
+.form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--crm-text);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+    font-family: var(--crm-font-body);
+}
+
+.form-text {
+    font-size: 11px;
+    color: var(--crm-faint);
+    margin-top: 4px;
+}
+
+/* ─── MODALS ──────────────────────────────────────────────── */
+.modal-content {
+    border: 1px solid var(--crm-border);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(26, 25, 22, 0.15);
+    font-family: var(--crm-font-body);
+    overflow: hidden;
+}
+
+.modal-header {
+    background: var(--crm-bg);
+    border-bottom: 1px solid var(--crm-border);
+    padding: 16px 20px;
+}
+
+.modal-title {
+    font-family: var(--crm-font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--crm-text);
+    letter-spacing: -0.2px;
+}
+
+.modal-body {
+    background: var(--crm-card);
+    padding: 20px;
+}
+
+.modal-footer {
+    background: var(--crm-bg);
+    border-top: 1px solid var(--crm-border);
+    padding: 12px 20px;
+}
+
+.btn-close {
+    opacity: 0.5;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+/* ─── MODAL BUTTONS ───────────────────────────────────────── */
+#contactSaveBtn,
+#projectSaveBtn,
+#invoiceSaveBtn,
+#uploadAttachmentBtn,
+#addNoteBtn,
+#invoiceScanBtn {
+    background: var(--crm-text);
+    border: none;
+    border-radius: var(--crm-radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 18px;
+    color: #fff;
+    font-family: var(--crm-font-body);
+    transition: opacity 0.15s;
+}
+
+#contactSaveBtn:hover,
+#projectSaveBtn:hover,
+#invoiceSaveBtn:hover,
+#uploadAttachmentBtn:hover,
+#addNoteBtn:hover {
+    background: #2E2B27;
+    opacity: 0.88;
+}
+
+#invoiceScanBtn {
+    background: transparent;
+    border: 1.5px solid var(--crm-border);
+    color: var(--crm-text);
+}
+
+#invoiceScanBtn:hover {
+    background: var(--crm-bg);
+    border-color: #B0ADA6;
+}
+
+.btn-outline-secondary {
+    border: 1.5px solid var(--crm-border);
+    border-radius: var(--crm-radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    color: var(--crm-muted);
+    background: transparent;
+    font-family: var(--crm-font-body);
+    transition: background 0.12s, color 0.12s;
+}
+
+.btn-outline-secondary:hover {
+    background: var(--crm-bg);
+    border-color: #B0ADA6;
+    color: var(--crm-text);
+}
+
+/* ─── MODAL TABS ──────────────────────────────────────────── */
+.nav-tabs {
+    border-bottom: 1px solid var(--crm-border);
+    gap: 2px;
+}
+
+.nav-tabs .nav-link {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--crm-muted);
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 8px 14px;
+    border-radius: 0;
+    transition: color 0.12s;
+    font-family: var(--crm-font-body);
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--crm-text);
+    background: transparent;
+    border-bottom-color: var(--crm-border);
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--crm-text);
+    border-bottom: 2px solid var(--crm-text);
+    background: transparent;
+    font-weight: 600;
+}
+
+/* ─── MANAGE MODAL NOTE LIST ──────────────────────────────── */
+#notesList .list-group-item {
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius-sm);
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: var(--crm-text);
+    background: var(--crm-bg);
+    padding: 10px 14px;
+}
+
+/* ─── MONTH HISTORY LIST SCROLLER ──────────────────────────── */
+#historyInvoicesList {
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius-sm);
+}
+
+#historyInvoicesList::-webkit-scrollbar {
+    width: 5px;
+}
+
+#historyInvoicesList::-webkit-scrollbar-thumb {
+    background: var(--crm-border);
+    border-radius: 10px;
+}
+
+/* ─── ALERT STATES ────────────────────────────────────────── */
+.alert-danger {
+    background: #FFF0F0;
+    color: #891515;
+    border: 1px solid #FFC5C5;
+    border-radius: var(--crm-radius-sm);
+    font-size: 13px;
+}
+
+.alert-success {
+    background: #F0FDF6;
+    color: #1A6E47;
+    border: 1px solid #BBEAD4;
+    border-radius: var(--crm-radius-sm);
+    font-size: 13px;
+}
+
+/* ─── TEXT UTILITIES OVERRIDE ─────────────────────────────── */
+.text-muted {
+    color: var(--crm-muted) !important;
+    font-size: 13px;
+}
+
+/* ─── SCROLLBAR (Webkit) ──────────────────────────────────── */
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar {
+    width: 5px;
+}
+
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar-track {
+    background: var(--crm-bg);
+}
+
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb {
+    background: var(--crm-border);
+    border-radius: 10px;
+}
+
+/* ─── ENTRY ANIMATIONS ────────────────────────────────────── */
+@keyframes crm-rise {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card.text-white.bg-primary {
+    animation: crm-rise 0.3s ease 0.05s both;
+}
+
+.card.text-white.bg-success {
+    animation: crm-rise 0.3s ease 0.10s both;
+}
+
+.card.text-white.bg-warning {
+    animation: crm-rise 0.3s ease 0.15s both;
+}
+
+.card.text-white.bg-info {
+    animation: crm-rise 0.3s ease 0.20s both;
+}
+
+/* ─── BOOTSTRAP NAVBAR-DARK OVERRIDES ────────────────────── */
+.navbar.navbar-dark .navbar-brand,
+.navbar.navbar-dark .navbar-brand:hover {
+    color: var(--crm-text) !important;
+}
+
+.navbar.navbar-dark .navbar-toggler-icon {
+    filter: invert(1) brightness(0);
+}
+
+/* ─── RESPONSIVE FIXES ────────────────────────────────────── */
+@media (max-width: 768px) {
+    .container-fluid.mt-4 {
+        padding: 20px 14px 40px;
+    }
+
+    .col-md-3.col-lg-2 {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .crm-table thead.table-light th {
+        font-size: 9px;
+    }
+}
+
+/* =========================================================
+   PROFIEL PAGINA
+   ========================================================= */
+
+.container.py-4 {
+    font-family: var(--crm-font-body);
+    background: var(--crm-bg);
+    padding-top: 36px !important;
+    padding-bottom: 48px !important;
+    max-width: 960px;
+}
+
+.col-lg-4 .card {
+    border: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) !important;
+    box-shadow: var(--crm-shadow-sm) !important;
+    background: var(--crm-sidebar) !important;
+}
+
+.col-lg-4 .card-header {
+    background: var(--crm-bg) !important;
+    border-bottom: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) var(--crm-radius) 0 0 !important;
+    padding: 13px 18px;
+}
+
+.col-lg-4 .card-header .mb-0 {
+    font-family: var(--crm-font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--crm-text);
+    letter-spacing: -0.2px;
+}
+
+.col-lg-4 .card-body {
+    padding: 28px 20px 24px;
+}
+
+#profileAvatar {
+    border-radius: 14px;
+    border: 2px solid var(--crm-border);
+    transform: none !important;
+}
+
+#profileName {
+    font-family: var(--crm-font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--crm-text);
+    letter-spacing: -0.2px;
+}
+
+#profileEmail {
+    font-size: 12px;
+    color: var(--crm-faint) !important;
+    margin-bottom: 6px !important;
+}
+
+.col-lg-4 .small.text-muted.mb-3 {
+    font-size: 11px;
+    color: var(--crm-faint) !important;
+    word-break: break-all;
+}
+
+#changePasswordBtn {
+    background: transparent;
+    border: 1.5px solid var(--crm-border);
+    border-radius: var(--crm-radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--crm-muted);
+    padding: 9px 14px;
+    font-family: var(--crm-font-body);
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+
+#changePasswordBtn:hover {
+    background: var(--crm-bg);
+    border-color: #B0ADA6;
+    color: var(--crm-text);
+}
+
+#reloadBtn {
+    background: var(--crm-text);
+    border: none;
+    border-radius: var(--crm-radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    padding: 9px 14px;
+    font-family: var(--crm-font-body);
+    transition: opacity 0.15s, transform 0.1s;
+}
+
+#reloadBtn:hover {
+    background: #2E2B27;
+    opacity: 0.88;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.col-lg-4 .form-text.mt-3 {
+    font-size: 11px;
+    color: var(--crm-faint);
+    line-height: 1.5;
+    text-align: left;
+}
+
+.col-lg-8 .card {
+    border: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) !important;
+    box-shadow: var(--crm-shadow-sm) !important;
+    background: var(--crm-card) !important;
+}
+
+.col-lg-8 .card-header {
+    background: var(--crm-bg) !important;
+    border-bottom: 1px solid var(--crm-border) !important;
+    border-radius: var(--crm-radius) var(--crm-radius) 0 0 !important;
+    padding: 13px 18px;
+}
+
+.col-lg-8 .card-header .mb-0 {
+    font-family: var(--crm-font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--crm-text);
+    letter-spacing: -0.2px;
+}
+
+.col-lg-8 .card-body {
+    padding: 22px 20px 24px;
+}
+
+.alert.alert-info.small.mb-3 {
+    background: #F0F4FF;
+    color: #2D4A9E;
+    border: 1px solid #C8D8FF;
+    border-radius: var(--crm-radius-sm);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 10px 14px;
+}
+
+#saveBtn,
+#saveBtn2 {
+    background: var(--crm-text);
+    border: none;
+    border-radius: var(--crm-radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    padding: 9px 18px;
+    font-family: var(--crm-font-body);
+    transition: opacity 0.15s, transform 0.1s;
+}
+
+#saveBtn:hover,
+#saveBtn2:hover {
+    background: #2E2B27;
+    opacity: 0.88;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+#cancelBtn {
+    background: transparent;
+    border: 1.5px solid var(--crm-border);
+    border-radius: var(--crm-radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--crm-muted);
+    padding: 8px 16px;
+    font-family: var(--crm-font-body);
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+
+#cancelBtn:hover {
+    background: var(--crm-bg);
+    border-color: #B0ADA6;
+    color: var(--crm-text);
+}
+
+#statusText {
+    font-size: 12px;
+    color: var(--crm-faint);
+}
+
+/* =========================================================
+   MOBIEL — alle breakpoints, desktop ongewijzigd
+   ========================================================= */
+
+/* ─── RESET BROKEN TRANSFORMS (alle schermgroottes) ──────── */
+/* De inline transforms in de CSS veroorzaken problemen op mobiel */
+.container-fluid .col-lg-2 {
+    transform: none !important;
+}
+
+#profileAvatar {
+    transform: none !important;
+}
+
+/* ─── TABLET (max 991px) ──────────────────────────────────── */
+@media (max-width: 991px) {
+
+    /* Navbar: compacter */
+    .navbar.navbar-dark.bg-primary {
+        height: auto;
+        padding: 10px 16px;
+    }
+
+    .navbar-collapse {
+        background: var(--crm-card);
+        border: 1px solid var(--crm-border);
+        border-radius: var(--crm-radius);
+        margin-top: 8px;
+        padding: 10px;
+        box-shadow: var(--crm-shadow-md);
+    }
+
+    .navbar-nav .nav-link {
+        padding: 9px 12px !important;
+        border-radius: var(--crm-radius-sm);
+    }
+
+    .navbar-nav {
+        gap: 2px;
+    }
+
+    /* Sidebar: horizontaal boven de content */
+    .col-md-3.col-lg-2 {
+        width: 100%;
+        max-width: 100%;
+        padding-right: 0;
+        margin-bottom: 16px;
+    }
+
+    .col-md-3.col-lg-2 .card {
+        border-radius: var(--crm-radius) !important;
+    }
+
+    .col-md-3.col-lg-2 .d-grid {
+        display: flex !important;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .col-md-3.col-lg-2 .d-grid .btn {
+        flex: 1 1 auto;
+        min-width: 120px;
+        white-space: nowrap;
+    }
+
+    /* Hoofdkolom: volledige breedte */
+    .col-md-9.col-lg-10 {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 0;
+    }
+
+    /* Profielkaart: onder de tabellen */
+    .col-md-8 {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .col-md-4 {
+        width: 100%;
+        max-width: 100% !important;
+        position: static !important;
+        left: auto !important;
+        transform: none !important;
+        min-width: 0 !important;
+        margin-top: 24px;
+    }
+
+    #profile .card-body {
+        width: auto !important;
+    }
+
+    /* Stat kaarten: 2 per rij */
+    .col-md-3 {
+        width: 50%;
+    }
+}
+
+/* ─── MOBIEL (max 767px) ──────────────────────────────────── */
+@media (max-width: 767px) {
+
+    /* Pagina padding */
+    .container-fluid.mt-4 {
+        padding: 16px 12px 40px !important;
+        margin-top: 0 !important;
+    }
+
+    /* Welkom koptekst */
+    .col-md-9.col-lg-10 .row.mb-4 h2 {
+        font-size: 20px;
+        line-height: 1.3;
+    }
+
+    /* Stat kaarten: 1 per rij op kleine schermen */
+    .col-md-3 {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .card.text-white.bg-primary,
+    .card.text-white.bg-success,
+    .card.text-white.bg-warning,
+    .card.text-white.bg-info {
+        animation: none;
+    }
+
+    /* Kaart body compacter */
+    .card.text-white.bg-primary .card-body,
+    .card.text-white.bg-success .card-body,
+    .card.text-white.bg-warning .card-body,
+    .card.text-white.bg-info .card-body {
+        padding: 14px 16px;
+    }
+
+    .card.text-white.bg-primary .card-title,
+    .card.text-white.bg-success .card-title,
+    .card.text-white.bg-warning .card-title,
+    .card.text-white.bg-info .card-title {
+        font-size: 24px;
+    }
+
+    /* Quick actions sidebar: altijd volledig gestapeld */
+    .col-md-3.col-lg-2 .d-grid {
+        flex-direction: column !important;
+    }
+
+    .col-md-3.col-lg-2 .d-grid .btn {
+        min-width: 0;
+        width: 100%;
+    }
+
+    /* Sectie koppen: kleiner + knop past naast */
+    #contacts .d-flex,
+    #projects .d-flex,
+    #invoices .d-flex {
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+    }
+
+    #contacts .mb-0,
+    #projects .mb-0,
+    #invoices .mb-0 {
+        font-size: 15px;
+    }
+
+    /* Tabellen: horizontaal scrollbaar */
+    .table-responsive {
+        border-radius: var(--crm-radius);
+        border: 1px solid var(--crm-border);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .crm-table {
+        min-width: 480px;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .crm-table thead.table-light th {
+        font-size: 9px;
+        padding: 9px 10px;
+        white-space: nowrap;
+    }
+
+    .crm-table tbody td {
+        padding: 11px 10px;
+        font-size: 12px;
+    }
+
+    /* Card header + body */
+    .card-header {
+        padding: 11px 14px;
+    }
+
+    .card-body {
+        padding: 14px;
+    }
+
+    /* HR */
+    .col-md-8 hr.my-4 {
+        margin: 20px 0;
+    }
+
+    /* Profiel sectie op dashboard */
+    #profile .card-body {
+        padding: 20px 16px;
+    }
+
+    #profileName {
+        font-size: 14px;
+    }
+
+    /* Navbar: strak op mobiel */
+    .navbar.navbar-dark.bg-primary {
+        padding: 8px 14px;
+    }
+
+    .navbar-brand {
+        font-size: 14px;
+    }
+
+    /* User dropdown button iets kleiner */
+    #userDropdown {
+        font-size: 12px;
+        padding: 4px 10px;
+    }
+
+    /* Modals: volledig scherm op klein mobiel */
+    .modal-dialog {
+        margin: 8px;
+        max-width: calc(100vw - 16px);
+    }
+
+    .modal-content {
+        border-radius: 12px;
+    }
+
+    .modal-header {
+        padding: 13px 16px;
+    }
+
+    .modal-body {
+        padding: 16px;
+    }
+
+    .modal-footer {
+        padding: 10px 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .modal-footer .btn {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+
+    #historyInvoicesList {
+        max-height: 220px;
+    }
+
+    /* Formulieren in modals: alles full width */
+    .modal-body .col-md-6 {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* ─── KLEIN MOBIEL (max 480px) ───────────────────────────── */
+@media (max-width: 480px) {
+
+    /* Welkom koptekst */
+    .col-md-9.col-lg-10 .row.mb-4 h2 {
+        font-size: 18px;
+    }
+
+    .col-md-9.col-lg-10 .row.mb-4 h2 #welcomeName {
+        display: block;
+        margin-top: 2px;
+    }
+
+    /* Stat cards: nog compacter */
+    .card.text-white.bg-primary .card-title,
+    .card.text-white.bg-success .card-title,
+    .card.text-white.bg-warning .card-title,
+    .card.text-white.bg-info .card-title {
+        font-size: 22px;
+    }
+
+    /* Section add-knoppen: volledige breedte */
+    #addContactBtn,
+    #addProjectBtn,
+    #addInvoiceBtn {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+
+    /* Nav tabs in modal */
+    .nav-tabs .nav-link {
+        font-size: 12px;
+        padding: 7px 10px;
+    }
+}
+
+/* =========================================================
+   MOBIEL — PROFIEL PAGINA
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .container.py-4 {
+        max-width: 100%;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+    /* Account kaart en Contactgegevens kaart: volledig gestapeld */
+    .col-lg-4 {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .col-lg-8 {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .col-lg-4 .card-body {
+        padding: 20px 16px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .container.py-4 {
+        padding-top: 20px !important;
+        padding-bottom: 32px !important;
+    }
+
+    /* Profiel formulier: alles full width */
+    .col-lg-8 .row.g-3 .col-md-6 {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Opslaan/annuleren knoppen naast elkaar */
+    .col-lg-8 .d-flex.gap-2 {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    #saveBtn2 {
+        flex: 1;
+    }
+
+    #cancelBtn {
+        flex: 1;
+    }
+}
+
+/* =========================================================
+   MOBIEL — BLOCKED PAGINA
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    #blocked-topbar {
+        padding: 0 16px;
+        height: 48px;
+    }
+
+    #blocked-logo {
+        font-size: 14px;
+    }
+
+    #blocked-logout-btn {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    #blocked-card {
+        padding: 32px 24px 28px;
+        margin-top: 48px;
+        border-radius: 12px;
+    }
+
+    #blocked-title {
+        font-size: 19px;
+    }
+
+    #blocked-sub {
+        font-size: 13px;
+    }
+
+    #blocked-plans {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .blocked-plan-item {
+        flex: none;
+        width: 100%;
+    }
+
+    #blocked-cta {
+        font-size: 13px;
+        padding: 11px 16px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    #blocked-card {
+        padding: 24px 18px 22px;
+    }
+
+    #blocked-icon-wrap {
+        width: 54px;
+        height: 54px;
+    }
+
+    #blocked-icon-wrap .bi {
+        font-size: 22px;
+    }
+
+    #blocked-title {
+        font-size: 17px;
+    }
+}
+
+/* Button */
+#projectsTbody tr .btn-outline-secondary {
+    border-color: #000000;
+}
+
+/* Button */
+#contactsTbody tr .btn-outline-secondary {
+    border-color: #000000;
+}
+
+/* Button */
+#invoicesTbody tr .btn-outline-secondary {
+    border-color: #000000;
+}
+
+.navbar .container-fluid {
+    min-height: 55px;
+}
+
+/* ===== CRM Grid Columns (scoped) ===== */
+.crm-grid-wrapper {
+    padding: 0;
+}
+
+.crm-grid-wrapper .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.crm-grid-wrapper .grid-col {
+    background: #fff;
+    border: 1px solid #E8E5DF;
+    border-radius: 12px;
+    min-height: 520px;
+    box-shadow: 0 1px 3px rgba(26, 25, 22, 0.05);
+    transition: box-shadow 0.2s;
+}
+
+.crm-grid-wrapper .grid-col:hover {
+    box-shadow: 0 4px 12px rgba(26, 25, 22, 0.08);
+}
+
+.crm-grid-wrapper .grid-header {
+    padding: 16px 18px;
+    border-bottom: 1px solid #E8E5DF;
+    font-weight: 700;
+    font-size: 13px;
+    background: #FBFAF8;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.crm-grid-wrapper .grid-header .badge {
+    background: #E8E5DF;
+    color: #74706A;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 100px;
+}
+
+.crm-grid-wrapper .grid-body {
+    padding: 14px;
+    max-height: 460px;
+    overflow-y: auto;
+}
+
+.crm-grid-wrapper .grid-body::-webkit-scrollbar {
+    width: 5px;
+}
+
+.crm-grid-wrapper .grid-body::-webkit-scrollbar-thumb {
+    background: #E8E5DF;
+    border-radius: 10px;
+}
+
+.crm-grid-wrapper .card {
+    background: #FBFAF8;
+    border: 1px solid #E8E5DF;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 10px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+}
+
+.crm-grid-wrapper .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 25, 22, 0.08);
+    border-color: #D4D0C9;
+}
+
+.crm-grid-wrapper .card:last-child {
+    margin-bottom: 0;
+}
+
+.crm-grid-wrapper .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.crm-grid-wrapper .card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+    margin: 0;
+}
+
+.crm-grid-wrapper .card .status {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.crm-grid-wrapper .card .status.upcoming {
+    background: #FFF3CD;
+    color: #856404;
+}
+
+.crm-grid-wrapper .card .status.paid {
+    background: #D1F5E5;
+    color: #1A6E47;
+}
+
+.crm-grid-wrapper .card .status.available {
+    background: #E5EDFF;
+    color: #1E40AF;
+}
+
+.crm-grid-wrapper .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.crm-grid-wrapper .card-meta-item {
+    font-size: 11px;
+    color: #74706A;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.crm-grid-wrapper .card-meta-item strong {
+    color: #1A1916;
+    font-weight: 600;
+}
+
+.crm-grid-wrapper .card .time-block {
+    background: #fff;
+    border: 1px solid #E8E5DF;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.crm-grid-wrapper .card .time-block .time {
+    font-weight: 700;
+    font-size: 13px;
+    color: #1A1916;
+}
+
+.crm-grid-wrapper .card .time-block .duration {
+    font-size: 11px;
+    color: #74706A;
+}
+
+.crm-grid-wrapper .card-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.crm-grid-wrapper .card button {
+    flex: 1;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+}
+
+.crm-grid-wrapper .card .btn-primary {
+    background: #1A1916;
+    color: #fff;
+}
+
+.crm-grid-wrapper .card .btn-primary:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+.crm-grid-wrapper .card .btn-secondary {
+    background: transparent;
+    border: 1px solid #E8E5DF;
+    color: #1A1916;
+}
+
+.crm-grid-wrapper .card .btn-secondary:hover {
+    background: #F7F6F3;
+}
+
+.crm-grid-wrapper .empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    color: #A8A49D;
+}
+
+.crm-grid-wrapper .empty-state svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    opacity: 0.3;
+}
+
+.crm-grid-wrapper .empty-state p {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Responsive: stack columns on smaller screens */
+@media (max-width: 1200px) {
+    .crm-grid-wrapper .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.col-lg-10 .row .col-lg-4 .card .card-body {
+    position: relative;
+    top: -19px;
+}

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Freelancer CRM</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="dashboard.html">
+                <i class="bi bi-people-fill me-2"></i>
+                Freelancer CRM
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="bi bi-house-door me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="admin.html">
+                            <i class="bi bi-shield-lock me-1"></i>Admin
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center">
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="userDropdown"
+                            data-bs-toggle="dropdown">
+                            <img id="userAvatar" src="" alt="User" class="rounded-circle me-2" width="32" height="32"
+                                style="display: none;">
+                            <span id="userName">Laden...</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="profile.html"><i
+                                        class="bi bi-person me-2"></i>Profiel</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn"><i
+                                        class="bi bi-box-arrow-right me-2"></i>Uitloggen</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-9 col-lg-10">
+                <div class="row mb-4">
+                    <div class="col">
+                        <h2>Admin</h2>
+                        <p class="text-muted">Beheer gebruikers en abonnementen</p>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row g-2 align-items-center">
+                            <div class="col-md-6">
+                                <input class="form-control" id="userSearchInput"
+                                    placeholder="Zoek op naam, email of Auth0 ID">
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-primary w-100" id="userSearchBtn">
+                                    <i class="bi bi-search me-1"></i>Zoeken
+                                </button>
+                            </div>
+                        </div>
+                        <div class="alert alert-danger d-none mt-3" id="adminError"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Gebruikers</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle crm-table">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Naam</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Expires</th>
+                                        <th class="text-end">Acties</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- USER DETAIL MODAL (Beheer) -->
+    <div class="modal fade" id="manageUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Gebruiker beheren</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="manageUserInfo" class="mb-3"></div>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-primary" id="openSubscriptionBtn">Abonnement verlengen</button>
+                        <button class="btn btn-danger" id="openBlockBtn">Blokkeren</button>
+                        <button class="btn btn-success d-none" id="openUnblockBtn">Deblokkeren</button>
+
+                        <button class="btn btn-outline-primary" id="openProfileBtn">Profiel wijzigen</button>
+                        <button class="btn btn-outline-dark" id="openPwBtn">Wachtwoord wijzigen (mail)</button>
+                    </div>
+
+                    <div class="alert alert-danger d-none mt-3" id="manageUserError"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUBSCRIPTION MODAL -->
+    <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Abonnement verlengen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <label class="form-label">Dagen</label>
+                            <input type="number" class="form-control" id="subDays" value="30">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Uren</label>
+                            <input type="number" class="form-control" id="subHours" value="0">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Minuten</label>
+                            <input type="number" class="form-control" id="subMinutes" value="0">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Seconden</label>
+                            <input type="number" class="form-control" id="subSeconds" value="0">
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger d-none mt-3" id="subError"></div>
+                    <div class="alert alert-success d-none mt-3" id="subOk">Abonnement bijgewerkt.</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
+                    <button class="btn btn-primary" id="subSaveBtn">Opslaan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLOCK MODAL -->
+    <div class="modal fade" id="blockModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Gebruiker blokkeren</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Reden</label>
+                    <select class="form-select" id="blockReason">
+                        <option value="blocked_by_admin">blocked_by_admin</option>
+                        <option value="subscription_expired">subscription_expired</option>
+                        <option value="payment_failed">payment_failed</option>
+                        <option value="abuse">abuse</option>
+                    </select>
+
+                    <label class="form-label mt-2">Notitie (getoond aan gebruiker)</label>
+                    <textarea class="form-control" id="blockNote" rows="3"></textarea>
+
+                    <div class="alert alert-danger d-none mt-3" id="blockError"></div>
+                    <div class="alert alert-success d-none mt-3" id="blockOk">Gebruiker bijgewerkt.</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
+                    <button class="btn btn-danger" id="blockSaveBtn">Blokkeren</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE MODAL -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Profiel wijzigen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Naam</label>
+                    <input class="form-control" id="profileNameInput" placeholder="Naam">
+
+                    <label class="form-label mt-2">Profile picture URL</label>
+                    <input class="form-control" id="profilePicUrlInput" placeholder="https://...">
+
+                    <label class="form-label mt-2">Subscription expires at (ISO, optioneel)</label>
+                    <input class="form-control" id="profileExpiresAtInput" placeholder="2026-03-31T12:00:00Z">
+
+                    <label class="form-label mt-2">Blocked note (optioneel)</label>
+                    <textarea class="form-control" id="profileBlockedNoteInput" rows="3"></textarea>
+
+                    <div class="alert alert-danger d-none mt-3" id="profileError"></div>
+                    <div class="alert alert-success d-none mt-3" id="profileOk">Profiel bijgewerkt.</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
+                    <button class="btn btn-primary" id="profileSaveBtn">Opslaan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PASSWORD RESET MODAL -->
+    <div class="modal fade" id="pwModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Wachtwoord reset mail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success d-none" id="pwOk">Reset-mail verstuurd.</div>
+                    <div class="alert alert-danger d-none" id="pwErr"></div>
+                    <p class="text-muted mb-0">Er wordt een reset-link per e-mail verstuurd (indien mogelijk voor deze
+                        login-methode).</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
+                    <button class="btn btn-dark" id="pwSendBtn">Verstuur mail</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>

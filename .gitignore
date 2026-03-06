@@ -1,0 +1,55 @@
+# =========================
+# Node.js dependencies
+# =========================
+**/node_modules/
+
+# =========================
+# Environment files
+# =========================
+backend/.env
+frontend/.env
+.env
+.env.*
+
+# =========================
+# Backend generated folders
+# =========================
+backend/database/
+backend/uploads/
+backend/scripts/
+backend/unknown/
+backend/auth0_*/
+
+# =========================
+# Postman
+# =========================
+postman/
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE / Editor folders
+# =========================
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# =========================
+# Build outputs (optional)
+# =========================
+frontend/dist/
+frontend/build/

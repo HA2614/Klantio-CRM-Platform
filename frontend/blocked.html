@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toegang geblokkeerd - Freelancer CRM</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+        /* ─── BLOCKED PAGE SPECIFIEK ─────────────────────────────── */
+        #blocked-page {
+            min-height: 100vh;
+            background: var(--crm-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--crm-font-body);
+            padding: 32px 20px;
+        }
+
+        #blocked-topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: var(--crm-card);
+            border-bottom: 1px solid var(--crm-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            z-index: 100;
+        }
+
+        #blocked-logo {
+            font-family: var(--crm-font-display);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--crm-text);
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        #blocked-logo .bi {
+            color: var(--crm-text);
+            opacity: 0.3;
+            font-size: 16px;
+        }
+
+        #blocked-logout-btn {
+            background: transparent;
+            border: 1.5px solid var(--crm-border);
+            border-radius: var(--crm-radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--crm-muted);
+            padding: 6px 14px;
+            font-family: var(--crm-font-body);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.12s, border-color 0.12s, color 0.12s;
+            text-decoration: none;
+        }
+
+        #blocked-logout-btn:hover {
+            background: var(--crm-bg);
+            border-color: #B0ADA6;
+            color: var(--crm-text);
+        }
+
+        #blocked-card {
+            background: var(--crm-card);
+            border: 1px solid var(--crm-border);
+            border-radius: 14px;
+            box-shadow: var(--crm-shadow-md);
+            padding: 48px 44px 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            margin-top: 52px;
+            animation: crm-rise 0.35s ease 0.05s both;
+        }
+
+        #blocked-icon-wrap {
+            width: 64px;
+            height: 64px;
+            background: #FFF0F0;
+            border: 1px solid #FFD1D1;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 22px;
+        }
+
+        #blocked-icon-wrap .bi {
+            font-size: 28px;
+            color: #C0392B;
+        }
+
+        #blocked-title {
+            font-family: var(--crm-font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--crm-text);
+            letter-spacing: -0.4px;
+            margin-bottom: 10px;
+            line-height: 1.25;
+        }
+
+        #blocked-sub {
+            font-size: 14px;
+            color: var(--crm-muted);
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        #blocked-divider {
+            border: none;
+            border-top: 1px solid var(--crm-border);
+            margin: 0 0 24px;
+        }
+
+        #blocked-plan-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--crm-faint);
+            margin-bottom: 10px;
+        }
+
+        #blocked-plans {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 26px;
+        }
+
+        .blocked-plan-item {
+            flex: 1;
+            border: 1.5px solid var(--crm-border);
+            border-radius: var(--crm-radius);
+            padding: 14px 12px;
+            text-align: left;
+            background: var(--crm-bg);
+            transition: border-color 0.15s, box-shadow 0.15s;
+            cursor: default;
+        }
+
+        .blocked-plan-item.featured {
+            border-color: var(--crm-text);
+            background: var(--crm-card);
+            box-shadow: var(--crm-shadow-sm);
+        }
+
+        .blocked-plan-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--crm-text);
+            margin-bottom: 2px;
+        }
+
+        .blocked-plan-price {
+            font-family: var(--crm-font-display);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--crm-text);
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .blocked-plan-period {
+            font-size: 10px;
+            color: var(--crm-faint);
+        }
+
+        .blocked-plan-badge {
+            display: inline-block;
+            background: var(--crm-text);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 7px;
+            border-radius: 100px;
+            margin-bottom: 6px;
+        }
+
+        #blocked-cta {
+            display: block;
+            width: 100%;
+            background: var(--crm-text);
+            border: none;
+            border-radius: var(--crm-radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            padding: 12px 20px;
+            font-family: var(--crm-font-body);
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.15s, transform 0.1s;
+            margin-bottom: 12px;
+        }
+
+        #blocked-cta:hover {
+            background: #2E2B27;
+            opacity: 0.9;
+            transform: translateY(-1px);
+            color: #fff;
+        }
+
+        #blocked-logout-bottom {
+            font-size: 12px;
+            color: var(--crm-faint);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.12s;
+        }
+
+        #blocked-logout-bottom:hover {
+            color: var(--crm-muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Minimale topbar -->
+    <div id="blocked-topbar">
+        <a id="blocked-logo" href="#">
+            <i class="bi bi-people-fill"></i>
+            Freelancer CRM
+        </a>
+        <a href="#" id="logoutBtn">
+            <i class="bi bi-box-arrow-right"></i>
+            Uitloggen
+        </a>
+    </div>
+
+    <!-- Geblokkeerde pagina -->
+    <div id="blocked-page">
+        <div id="blocked-card">
+
+            <div id="blocked-icon-wrap">
+                <i class="bi bi-lock-fill"></i>
+            </div>
+
+            <div id="blocked-title">Toegang geblokkeerd</div>
+            <p id="blocked-sub">
+                Je account heeft geen actief abonnement. Neem contact op met ons voor het vernieuwen van je abbonement.
+            </p>
+
+            <hr id="blocked-divider" />
+
+
+            <a id="blocked-cta" href="#">
+                Whatsapp: +31612345678 <!-- Whatsapp business link toevoegen -->
+            </a>
+
+            <a id="blocked-cta" href="dashboard.html">
+                Probeer opnieuw
+            </a>
+
+            <a id="blocked-cta" href="profile.html">
+                Profiel Wijzigen
+            </a>
+
+
+
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

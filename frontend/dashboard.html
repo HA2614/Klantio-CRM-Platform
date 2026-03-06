@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Freelancer CRM</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-people-fill me-2"></i>
+                Freelancer CRM
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.html">
+                            <i class="bi bi-house-door me-1"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacts">
+                            <i class="bi bi-person-lines-fill me-1"></i>
+                            Opdrachtgevers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">
+                            <i class="bi bi-folder me-1"></i>
+                            Opdrachten
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#invoices">
+                            <i class="bi bi-receipt me-1"></i>
+                            Facturen
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center">
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="userDropdown"
+                            data-bs-toggle="dropdown">
+                            <img id="userAvatar" src="" alt="User" class="rounded-circle me-2" width="32" height="32"
+                                style="display: none;">
+                            <span id="userName">Laden...</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="profile.html"><i
+                                        class="bi bi-person me-2"></i>Profiel</a></li>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-none" href="admin.html" id="adminLink">
+                                    <i class="bi bi-shield-lock me-2"></i>Admin
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item" href="#settings"><i
+                                        class="bi bi-gear me-2"></i>Instellingen</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn"><i
+                                        class="bi bi-box-arrow-right me-2"></i>Uitloggen</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <div class="row">
+
+            <div class="col-md-3 col-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-3 text-muted">QUICK ACTIONS</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary btn-sm" id="qaNewContact">
+                                <i class="bi bi-plus-lg me-1"></i>
+                                Nieuw Opdrachtgever
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" id="qaNewProject">
+                                <i class="bi bi-plus-lg me-1"></i>
+                                Nieuw Opdracht
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" id="qaNewInvoice">
+                                <i class="bi bi-plus-lg me-1"></i>
+                                Nieuwe Factuur
+                            </button>
+                            <div class="small text-muted d-none" id="bulkInvoiceProgress"></div>
+                            <button class="btn btn-outline-dark btn-sm" id="bulkInvoiceBtn" type="button">
+                                <i class="bi bi-files me-1"></i>
+                                Bulk Factuur Upload
+                            </button>
+                            <input type="file" id="bulkInvoiceFiles" class="d-none" accept="application/pdf" multiple>
+                            <div class="input-group input-group-sm mt-1">
+                                <span class="input-group-text">Jaar</span>
+                                <select class="form-select" id="fetchInvoicingYear"></select>
+                            </div>
+                            <button class="btn btn-outline-secondary btn-sm" id="fetchInvoicingBtn" type="button">
+                                <i class="bi bi-cloud-arrow-down me-1"></i>
+                                Fetch Invoicing
+                            </button>
+                            <div class="small text-muted d-none" id="fetchInvoicingStatus"></div>
+                            <button class="btn btn-outline-danger btn-sm mt-2" id="qaDeleteAllTestData" type="button">
+                                <i class="bi bi-trash3 me-1"></i>
+                                Delete All (test)
+                            </button>
+                            <div class="small text-muted d-none" id="deleteAllStatus"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9 col-lg-10">
+
+                <div class="row mb-4">
+                    <div class="col">
+                        <h2>Welkom terug, <span id="welcomeName">...</span></h2>
+                        <p class="text-muted">Hier is een overzicht van je CRM</p>
+                    </div>
+                </div>
+
+
+
+                <div class="row g-3 mt-2">
+                    <div class="col-12 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h6 class="mb-0">Opkomende shifts</h6>
+                                </div>
+                                <div class="mt-3" id="upcomingShiftsList"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h6 class="mb-0">Ontvangen deze maand</h6>
+                                    <button class="btn btn-sm btn-outline-secondary badge" id="monthHistoryBtn"
+                                        type="button">
+                                        History
+                                    </button>
+                                </div>
+
+                                <div class="mt-3">
+                                    <div class="d-flex align-items-baseline justify-content-between">
+                                        <div class="small text-muted" id="monthLabel"></div>
+                                        <div class="h4 mb-0" id="receivedMonthAmount">€0</div>
+                                    </div>
+                                    <div class="small text-muted mt-1" id="receivedMonthMeta"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h6 class="mb-0">Nieuwe shifts beschikbaar</h6>
+                                </div>
+                                <div class="mt-3 text-muted" id="newShiftsPlaceholder">
+                                    Binnenkort beschikbaar.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card text-white bg-primary">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="card-subtitle mb-2 text-white-50">Opdrachtgevers</h6>
+                                        <h3 class="card-title mb-0">0</h3>
+                                    </div>
+                                    <i class="bi bi-people-fill" style="font-size: 2.5rem; opacity: 0.5;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card text-white bg-success">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="card-subtitle mb-2 text-white-50">Opdrachten</h6>
+                                        <h3 class="card-title mb-0">0</h3>
+                                    </div>
+                                    <i class="bi bi-folder-fill" style="font-size: 2.5rem; opacity: 0.5;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card text-white bg-warning">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="card-subtitle mb-2 text-white-50">Open Facturen</h6>
+                                        <h3 class="card-title mb-0">0</h3>
+                                    </div>
+                                    <i class="bi bi-receipt-cutoff" style="font-size: 2.5rem; opacity: 0.5;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card text-white bg-info">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="card-subtitle mb-2 text-white-50">Gefactureerd deze maand</h6>
+                                        <h3 class="card-title mb-0" id="monthRevenue">€0</h3>
+                                    </div>
+                                    <i class="bi bi-currency-euro" style="font-size: 2.5rem; opacity: 0.5;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Recente Activiteit</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group list-group-flush" id="activityList">
+                                    <div class="list-group-item text-muted">Laden...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <section id="contacts" class="mb-5">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h4 class="mb-0">Opdrachtgevers</h4>
+                                <button class="btn btn-sm btn-primary" id="addContactBtn">
+                                    <i class="bi bi-plus-lg me-1"></i>Nieuw opdrachtgever
+                                </button>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle crm-table">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Naam</th>
+                                            <th>Email</th>
+                                            <th>Telefoon</th>
+                                            <th>Bedrijf</th>
+                                            <th class="text-end">Acties</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="contactsTbody"></tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section id="projects" class="mb-5">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h4 class="mb-0">Opdrachten</h4>
+                                <button class="btn btn-sm btn-primary" id="addProjectBtn">
+                                    <i class="bi bi-plus-lg me-1"></i>Nieuw Opdracht
+                                </button>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle crm-table">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Naam</th>
+                                            <th>Status</th>
+                                            <th>Contact</th>
+                                            <th>Budget</th>
+                                            <th>Spent</th>
+                                            <th class="text-end">Acties</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="projectsTbody"></tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section id="invoices" class="mb-5">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h4 class="mb-0">Facturen</h4>
+                                <button class="btn btn-sm btn-primary" id="addInvoiceBtn">
+                                    <i class="bi bi-plus-lg me-1"></i>Nieuwe factuur
+                                </button>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle crm-table">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Nr</th>
+                                            <th>Status</th>
+                                            <th>Bedrag</th>
+                                            <th>Opdracht</th>
+                                            <th>Opdrachtgever</th>
+                                            <th>Vervaldatum</th>
+                                            <th class="text-end">Acties</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="invoicesTbody"></tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card" id="profile">
+                            <div class="card-header">
+                                <h5 class="mb-0">Jouw Profiel</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <img id="profileAvatar" src="" alt="Profile" class="rounded-circle mb-3" width="100"
+                                    height="100" style="display: none;">
+
+                                <h5 id="profileName">Laden...</h5>
+                                <p class="text-muted" id="profileEmail">-</p>
+
+                                <hr>
+
+                                <div class="text-start">
+                                    <p class="mb-2"><strong>User ID:</strong> <small id="profileUserId"
+                                            class="text-muted">-</small></p>
+                                    <p class="mb-2"><strong>Laatst ingelogd:</strong> <small id="profileLastLogin"
+                                            class="text-muted">Vandaag</small></p>
+                                    <p class="mb-0"><strong>Account type:</strong> <span
+                                            class="badge bg-success">Premium</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4" id="settings">
+                            <div class="card-header">
+                                <h5 class="mb-0">Instellingen</h5>
+                            </div>
+                            <div class="card-body">
+                                <label class="form-label" for="invoicingLinkInput">Invoicing link</label>
+                                <input class="form-control" id="invoicingLinkInput"
+                                    placeholder="https://example.com/invoices?year={year}">
+                                <div class="form-text">
+                                    Gebruik <code>{year}</code> in de URL om het gekozen jaar automatisch in te vullen.
+                                </div>
+                                <div class="d-flex gap-2 mt-3">
+                                    <button class="btn btn-sm btn-primary" id="saveInvoicingSettingsBtn" type="button">
+                                        Opslaan
+                                    </button>
+                                </div>
+                                <div class="small text-muted d-none mt-2" id="invoicingSettingsStatus"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalTitle">Contact</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm" class="row g-3">
+                        <input type="hidden" id="contactId">
+
+                        <div class="col-12">
+                            <label class="form-label">Bedrijfsnaam</label>
+                            <input class="form-control" id="contactName"
+                                placeholder="Naam van bedrijf (Bijv: Jumbo, mediamarkt of Gemeente Amsterdam.)"
+                                required>
+                            <div class="form-text">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Type</label>
+                            <select class="form-select" id="contactType">
+                                <option value="">Kies type</option>
+                                <option value="youngones">Youngones</option>
+                                <option value="temper">Temper</option>
+                                <option value="direct">Direct</option>
+                                <div class="form-text">Zit je keuze er niet tussen? Neem contact op met ons</div>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Contactpersoon</label>
+                            <input class="form-control" id="contactPerson" placeholder="Bijv. Jan de Vries">
+                            <div class="form-text">Wie is je aanspreekpunt bij deze opdrachtgever.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">E-mail</label>
+                            <input class="form-control" id="contactEmail" type="email" placeholder="naam@bedrijf.nl">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Telefoon</label>
+                            <input class="form-control" id="contactPhone" placeholder="+31 6 12345678">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">BTW-nummer</label>
+                            <input class="form-control" id="contactVat" placeholder="NL123456789B01">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">KvK-nummer</label>
+                            <input class="form-control" id="contactKvk" placeholder="12345678">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Betaaltermijn (dagen)</label>
+                            <input class="form-control" id="contactPaymentTerm" type="number" min="0" step="1"
+                                placeholder="Bijv. 14">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Standaard uurtarief</label>
+                            <input class="form-control" id="contactDefaultRate" type="number" step="0.01"
+                                placeholder="Bijv. 35">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Notities</label>
+                            <textarea class="form-control" id="contactNotes" rows="3"
+                                placeholder="Interne notities over deze opdrachtgever..."></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Extra label (optioneel)</label>
+                            <input class="form-control" id="contactCompany"
+                                placeholder="Bijv. label, afdeling, extra info">
+                            <div class="form-text">Dit veld bestond al; mag leeg blijven.</div>
+                        </div>
+                    </form>
+
+                    <div class="alert alert-danger d-none mt-3" id="contactFormError"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuleren</button>
+                    <button class="btn btn-primary" id="contactSaveBtn">
+                        Opslaan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Modal -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectModalTitle">Project</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="projectForm" class="row g-3">
+                        <input type="hidden" id="projectId">
+
+                        <input type="hidden" id="projectInvoiceId">
+
+                        <div class="col-12">
+                            <label class="form-label">Opdrachtnaam</label>
+                            <input class="form-control" id="projectName"
+                                placeholder="Bijv. Shift AH / Horeca dienst / Klus X" required>
+                            <div class="form-text">Dit is de opdracht (klus / shift / dienst).</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Opdracht uitvoer datum</label>
+                            <input class="form-control" id="projectWorkDate" type="date">
+                            <div class="form-text">Handmatig invullen</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="projectStatus">
+                                <option value="gepland">gepland</option>
+                                <option value="uitgevoerd">uitgevoerd</option>
+                                <option value="gefactureerd">gefactureerd</option>
+                                <option value="betaald">betaald</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Werktijd van</label>
+                            <input class="form-control" id="projectWorkStart" type="time">
+                            <div class="form-text">Optioneel</div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Werktijd tot</label>
+                            <input class="form-control" id="projectWorkEnd" type="time">
+                            <div class="form-text">Optioneel</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Uitbetalingsmethode</label>
+                            <select class="form-select" id="projectFactoringMethod">
+                                <option value="">Onbekend</option>
+                                <option value="one_minute_paid">1minute payment (al betaald)</option>
+                                <option value="payout_3days_paid">Uitbetaling binnen 3 dagen (al betaald)</option>
+                                <option value="wait_on_client">Wachten op opdrachtgever (betalingstermijn)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Opdrachtgever</label>
+                            <select class="form-select" id="projectContactId">
+                                <option value="">Geen</option>
+                            </select>
+                            <div class="form-text">Koppel de opdrachtgever (platform/direct/bemiddelaar).</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Locatie</label>
+                            <input class="form-control" id="projectLocation"
+                                placeholder="Bijv. Amsterdam / Utrecht / Remote">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Tarief type</label>
+                            <select class="form-select" id="projectRateType">
+                                <option value="hourly">per uur</option>
+                                <option value="fixed">vast bedrag</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Tarief</label>
+                            <input class="form-control" id="projectRate" type="number" step="0.01"
+                                placeholder="Bijv. 35">
+                        </div>
+
+                        <div class="col-12" id="projectInvoiceUploadWrap">
+                            <label class="form-label">Factuur PDF Scanning (verplicht bij gefactureerd /
+                                betaald)</label>
+
+                            <div class="d-flex flex-wrap gap-2 align-items-center">
+                                <input class="form-control" type="file" id="projectInvoicePdf" accept="application/pdf"
+                                    style="max-width: 420px;">
+                                <button class="btn btn-outline-primary" type="button" id="projectInvoiceScanBtn">
+                                    <i class="bi bi-search me-1"></i>Scan factuur
+                                </button>
+                                <div class="text-muted small" id="projectInvoiceScanHint">
+                                    Upload een PDF en klik scan. JSON wordt hieronder getoond.
+                                </div>
+                            </div>
+
+                            <div class="form-text">
+                                Deze wordt automatisch toegevoegd aan Facturen.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Scan JSON</label>
+                            <textarea class="form-control font-monospace" id="projectInvoiceScanJson" rows="8" readonly
+                                placeholder="Hier verschijnt de scan JSON..."></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Omschrijving (optioneel)</label>
+                            <textarea class="form-control" id="projectDescription" rows="3"
+                                placeholder="Extra info over deze opdracht..."></textarea>
+                        </div>
+                    </form>
+
+                    <div class="alert alert-danger d-none mt-3" id="projectFormError"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuleren</button>
+                    <button class="btn btn-primary" id="projectSaveBtn">Opslaan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Modal -->
+    <div class="modal fade" id="invoiceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="invoiceModalTitle">Factuur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="invoiceForm" class="row g-3">
+                        <input type="hidden" id="invoiceId">
+
+                        <div class="col-12">
+                            <label class="form-label">Scan factuur PDF (optioneel)</label>
+                            <div class="d-flex gap-2 flex-wrap align-items-center">
+                                <input class="form-control" type="file" id="invoiceScanFile" accept="application/pdf"
+                                    style="max-width: 420px;">
+                                <button class="btn btn-outline-primary" type="button" id="invoiceScanBtn">
+                                    <i class="bi bi-search me-1"></i>Scan PDF
+                                </button>
+                                <div class="text-muted small" id="invoiceScanHint">
+                                    Upload een PDF en klik scan. Velden worden automatisch ingevuld.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Factuurnummer</label>
+                            <input class="form-control" id="invoiceNumber" placeholder="Bijv. 2026-001" required>
+                            <div class="form-text">Tip: houd nummering consistent per jaar.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="invoiceStatus">
+                                <option value="draft">draft</option>
+                                <option value="sent">sent</option>
+                                <option value="paid">paid</option>
+                                <option value="overdue">overdue</option>
+                                <option value="cancelled">cancelled</option>
+                            </select>
+                            <div class="form-text">Tip: overdue helpt je om open posten te zien.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Bedrag</label>
+                            <input class="form-control" id="invoiceAmount" type="number" step="0.01"
+                                placeholder="Bijv. 1250" required>
+                            <div class="form-text">Tip: kies consistent of je bedragen incl of excl btw invult.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Koppel Opdracht (optioneel)</label>
+                            <select class="form-select" id="invoiceProjectId">
+                                <option value="">Geen</option>
+                            </select>
+                            <div class="form-text">Tip: project koppelen vult je overzicht automatisch.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Koppel Opdrachtgever (optioneel)</label>
+                            <select class="form-select" id="invoiceContactId">
+                                <option value="">Geen</option>
+                            </select>
+                            <div class="form-text">Tip: contact koppelen maakt factureren later makkelijker.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Factuur datum</label>
+                            <input class="form-control" id="invoicePaidDate" type="date">
+                            <div class="form-text">Wordt automatisch gevuld vanuit upload (invoice_date).</div>
+                        </div>
+
+                        <div class="col-md-6" id="invoiceIssueDateWrap">
+                            <label class="form-label">Issue date</label>
+                            <input class="form-control" id="invoiceIssueDate" type="date" required>
+                            <div class="form-text">Tip: issue date is de factuurdatum.</div>
+                        </div>
+
+                        <div class="col-md-6" id="invoiceDueDateWrap">
+                            <label class="form-label">Due date</label>
+                            <input class="form-control" id="invoiceDueDate" type="date" required>
+                            <div class="form-text">Tip: due date bepaalt wanneer hij overdue wordt.</div>
+                        </div>
+
+                        <div class="col-12 d-none" id="invoiceHiddenDatesNote">
+                            <div class="small text-muted">
+                                Issue date en due date zijn nu verborgen bij nieuwe facturen.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Notities (optioneel)</label>
+                            <textarea class="form-control" id="invoiceNotes" rows="3"
+                                placeholder="Interne notitie of extra info..."></textarea>
+                            <div class="form-text">Tip: interne notities zijn handig voor jezelf, niet voor de klant.
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="alert alert-danger d-none mt-3" id="invoiceFormError"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuleren</button>
+                    <button class="btn btn-primary" id="invoiceSaveBtn">Opslaan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Modal (Attachments + Notes) -->
+    <div class="modal fade" id="manageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="manageModalTitle">Beheren</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabAttachments"
+                                type="button" role="tab">
+                                Bijlagen
+                                <span class="badge bg-secondary ms-1" id="manageAttachmentsCount">0</span>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabNotes" type="button"
+                                role="tab">
+                                Notities
+                                <span class="badge bg-secondary ms-1" id="manageNotesCount">0</span>
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content pt-3">
+
+                        <div class="tab-pane fade show active" id="tabAttachments" role="tabpanel">
+                            <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+                                <input class="form-control" type="file" id="attachmentFile" style="max-width: 420px;">
+                                <button class="btn btn-primary" id="uploadAttachmentBtn">
+                                    <i class="bi bi-upload me-1"></i>Upload
+                                </button>
+                                <div class="text-muted small">Tip: bijlagen worden per gebruiker opgeslagen en gekoppeld
+                                    aan dit item.</div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle crm-table">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Bestand</th>
+                                            <th>Type</th>
+                                            <th>Grootte</th>
+                                            <th>Datum</th>
+                                            <th class="text-end">Acties</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="attachmentsTbody"></tbody>
+                                </table>
+                            </div>
+
+                            <div class="text-muted small" id="attachmentsEmptyHint" style="display:none;">
+                                Nog geen bijlagen. Upload een bestand om te starten.
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="tabNotes" role="tabpanel">
+                            <div class="mb-3">
+                                <label class="form-label">Nieuwe notitie</label>
+                                <textarea class="form-control" id="noteBody" rows="3"
+                                    placeholder="Schrijf een interne notitie..."></textarea>
+                                <div class="form-text">Tip: notities zijn alleen intern en worden newest first getoond.
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 mb-3">
+                                <button class="btn btn-primary" id="addNoteBtn">
+                                    <i class="bi bi-plus-lg me-1"></i>Toevoegen
+                                </button>
+                            </div>
+
+                            <div class="list-group" id="notesList"></div>
+
+                            <div class="text-muted small mt-2" id="notesEmptyHint" style="display:none;">
+                                Nog geen notities.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="alert alert-danger d-none mt-3" id="manageError"></div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Sluiten</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal (custom, no browser confirm) -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalTitle">Bevestigen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+                <div class="modal-body" id="confirmModalBody">
+                    Weet je het zeker?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" id="confirmModalCancel"
+                        data-bs-dismiss="modal">Annuleren</button>
+                    <button type="button" class="btn btn-danger" id="confirmModalOk">Verwijderen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="quickClientModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nieuwe opdrachtgever</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="small text-muted mb-2">
+                        Deze opdrachtgever bestaat nog niet. Maak hem kort aan zodat we hem kunnen koppelen.
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Bedrijfsnaam</label>
+                        <input type="text" class="form-control" id="quickClientName" placeholder="Bijv. ACME BV">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Contactpersoon (optioneel)</label>
+                        <input type="text" class="form-control" id="quickClientPerson" placeholder="Bijv. Jan de Vries">
+                    </div>
+
+                    <div class="alert alert-danger d-none" id="quickClientError"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuleren</button>
+                    <button class="btn btn-dark" id="quickClientSaveBtn" type="button">Opslaan en koppelen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="monthHistoryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Maandoverzicht</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-12 col-lg-4">
+                            <div class="list-group" id="historyYearsList"></div>
+                        </div>
+
+                        <div class="col-12 col-lg-4">
+                            <div class="list-group" id="historyMonthsList"></div>
+                        </div>
+
+                        <div class="col-12 col-lg-4">
+                            <div class="small text-muted mb-2" id="historySelectedLabel"></div>
+                            <div class="mb-2 h5" id="historySelectedTotal">€0</div>
+                            <div class="small text-muted mb-3" id="historySelectedCount"></div>
+                            <div id="historyInvoicesList" class="list-group"></div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger d-none mt-3" id="monthHistoryError"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
